@@ -4,7 +4,7 @@ import numpy as np
 from ultralytics import YOLO
 
 model=YOLO('yolov8s.pt')
-print(model.names) #this is the function to find out the labels
+# print(model.names) #this is the function to find out the labels
 video=cv2.VideoCapture('cctvFootage.mp4')
 count = 0
 
@@ -15,14 +15,19 @@ while True:
         continue
     frame=cv2.resize(frame,(1020,600))
     results=model.predict(frame)
-    a=results[0].boxes.data #contains 5 columns with the last one being thr prediciton
-    # print('this is', a)
+    a=results[0].boxes.data #contains 5 columns with the last one being the prediciton
+    # print('this is a', a)
     px=pd.DataFrame(a).astype("float")
     # print('this is the data frame:',px)
     for index,row in px.iterrows():
-        # print(row)
-        print(int(row[5])) #this is the prediction/ classification if is is 0 then it is a person
-        print('\n')
+        x1=int(row[0])
+        y1=int(row[1])
+        x2=int(row[2])
+        y2=int(row[3])
+        label=int(row[5])
+        if label==0:
+           cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
+           cv2.putText(frame,str('person'),(x1,y1),cv2.FONT_HERSHEY_SIMPLEX,(0.5),(255,255,255),1)
         
     
     cv2.imshow('Output Prediction',frame)
