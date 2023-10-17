@@ -28,10 +28,10 @@ while True:
         label=int(row[5])
         if label==0:
            person_count+=1
-           cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
-           cv2.putText(frame,str('person'),(x1,y1),cv2.FONT_HERSHEY_SIMPLEX,(0.5),(255,255,255),1)
+        #    cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
+        #    cv2.putText(frame,str('person'),(x1,y1),cv2.FONT_HERSHEY_SIMPLEX,(0.5),(255,255,255),1)
         
-    cv2.putText(frame,'Number of people '+str(person_count),(510,400),cv2.FONT_HERSHEY_TRIPLEX,(0.5),(0,255,0),2)
+    cv2.putText(frame,'Number of people '+str(person_count),(500,300),cv2.FONT_HERSHEY_TRIPLEX,(0.5),(0,255,0),2)
     cv2.imshow('Output Prediction',frame)
     if cv2.waitKey(1)&0xFF==27: #condition when the video is finished
         break
