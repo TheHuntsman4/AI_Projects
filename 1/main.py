@@ -11,7 +11,7 @@ count = 0
 while True:
     ret,frame = video.read()
     count+=1
-    if count%2!=0: #skipping even frames as it takes too long to iterate through everytihing
+    if count%24!=0: #skipping even frames as it takes too long to iterate through everytihing
         continue
     frame=cv2.resize(frame,(1020,600))
     results=model.predict(frame)
