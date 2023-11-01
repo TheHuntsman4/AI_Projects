@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Video Upload</title>
+    <title>Video Stream</title>
 </head>
 <body>
-    <h1>Upload a video for processing</h1>
-    <form action="http://localhost:5000/upload_video" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="video/*">
-        <input type="submit" value="Upload">
+    <h1>Video Stream</h1>
+    <img src="http://127.0.0.1:5000/upload_video" alt="Video Stream">
+    <form action="http://127.0.0.1:5000/upload_video" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit">
     </form>
-    <h1>Processed Video</h1>
-    <img src="/upload_video" id="video_stream">
-    <script>
-        // Refresh the image every 100ms to get the latest frame
-        setInterval(function () {
-            var img = document.getElementById('video_stream');
-            var date = new Date(); // Get the current date and time
-            // Add the date as a query parameter to the image URL to prevent caching
-            img.src = '/upload_video?time=' + date.getTime();
-        }, 100);
-    </script>
 </body>
 </html>
