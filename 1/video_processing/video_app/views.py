@@ -25,7 +25,7 @@ class ProcessVideo(threading.Thread):
         while True:
             ret, frame = video.read()
             count += 1
-            if count % 2 != 0:
+            if count % 24 != 0:
                 continue
             frame = cv2.resize(frame, (1020, 600))
             results = model.predict(frame)
