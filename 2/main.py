@@ -41,6 +41,7 @@ while True:
         y1=int(rows[3])
         class_name=str(rows['name'])
         cv2.rectangle(frame,(x,y),(x1,y1),(0,255,0),2)
+        veihcle_list.append(x,y,x1,y1)
     
     cv2.imshow("FRAME",frame)
     if cv2.waitKey(1)&0xFF==27:
