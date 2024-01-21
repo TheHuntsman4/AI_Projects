@@ -40,11 +40,16 @@ while True:
         x1=int(rows[2])
         y1=int(rows[3])
         class_name=str(rows['name'])
-        cv2.rectangle(frame,(x,y),(x1,y1),(0,255,0),2)
-        veihcle_list.append(x,y,x1,y1)
+        veihcle_list.append([x,y,x1,y1])
+    idx_bbox=tracker.update(veihcle_list)
+    for bbox in idx_bbox:
+        x2,y2,x3,y3,id=bbox
+        cv2.rectangle(frame,(x2,y2),(x3,y3),(0,0,255),2)
+        cv2.putText(frame,str(id),(x2,y2),cv2.FONT_HERSHEY_PLAIN,1,(0,0,0),2)
+        
     
     cv2.imshow("FRAME",frame)
-    if cv2.waitKey(1)&0xFF==27:
+    if cv2.waitKey(0)&0xFF==27:
         break
 cap.release()
 cv2.destroyAllWindows()
