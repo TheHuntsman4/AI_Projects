@@ -23,7 +23,9 @@ def POINTS(event, x, y, flags, param):
 cv2.namedWindow('FRAME')
 cv2.setMouseCallback('FRAME', POINTS)
 area1=[(367,437),(324,471),(526,482),(521,438)]
+area2=[(576,372),(590,394),(693,386),(669,377)]
 in_area_1=set()
+in_area_2=set()
 while True:
     ret,frame=cap.read()
     if not ret:
@@ -48,15 +50,21 @@ while True:
         cv2.rectangle(frame,(x2,y2),(x3,y3),(0,0,255),2)
         cv2.putText(frame,str(id),(x2,y2),cv2.FONT_HERSHEY_PLAIN,1,(0,0,0),2)
         cv2.circle(frame,(x3,y3),3,(0,255,0),-1)
-        result=cv2.pointPolygonTest(np.array(area1,np.int32),((x3,y3)),False)
-        if result>0:
+        result_leaving=cv2.pointPolygonTest(np.array(area1,np.int32),((x3,y3)),False)
+        if result_leaving>0:
             in_area_1.add(id)
         
+        result_entering=cv2.pointPolygonTest(np.array(area2,np.int32),((x3,y3)),False)
+        if result_entering>0:
+            in_area_2.add(id)
+            
     cv2.polylines(frame, [np.array(area1,np.int32)],True,(0,255,255),3)
+    cv2.polylines(frame, [np.array(area2,np.int32)],True,(0,255,255),3)
     cv2.imshow("FRAME",frame)
-    print(in_area_1)
     if cv2.waitKey(1)&0xFF==27:
         break
-    print(f'The number of vehicles leaving the frame: {len(in_area_1)}')
+
 cap.release()
 cv2.destroyAllWindows()
+print(f'The number of vehicles leaving the frame: {len(in_area_1)}')
+print(f'The number of vehicles entering the frame: {len(in_area_2)}')
